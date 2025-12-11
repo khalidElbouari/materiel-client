@@ -19,10 +19,10 @@ import UploadFileRoundedIcon from '@mui/icons-material/UploadFileRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
 import { useNotebook } from '../../contexts/NotebookContext';
-import { api } from '../../services/api';
+import ChatInterface from '../chat/ChatInterface';
 
 const NotebookDashboard = () => {
-  const { activeNotebook, documents, addDocument, removeDocument, toggleChatMode } = useNotebook();
+  const { activeNotebook, documents, addDocument, removeDocument, toggleChatMode, chatMode } = useNotebook();
   const [uploadingFiles, setUploadingFiles] = useState(new Set());
   const [uploadProgress, setUploadProgress] = useState({});
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
@@ -179,6 +179,10 @@ const NotebookDashboard = () => {
     }
   };
 
+  if (chatMode) {
+    return <ChatInterface />;
+  }
+
   return (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 3 }}>
@@ -201,10 +205,6 @@ const NotebookDashboard = () => {
           Start Chat
         </Button>
       </Stack>
-
-      <Alert severity="warning" sx={{ mb: 3 }}>
-        All documents are currently shared globally. Multi-notebook isolation coming soon.
-      </Alert>
 
       <Paper
         sx={{
