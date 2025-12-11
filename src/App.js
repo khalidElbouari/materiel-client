@@ -1,25 +1,50 @@
-import logo from './logo.svg';
+import React from 'react';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { NotebookProvider, useNotebook } from './contexts/NotebookContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import AppLayout from './components/layout/AppLayout';
+import ChatWelcome from './components/chat/ChatWelcome';
+import NotebookDashboard from './components/notebook/NotebookDashboard';
+import ChatInterface from './components/chat/ChatInterface';
+import Login from './components/auth/Login';
+import theme from './theme';
 import './App.css';
 
-function App() {
+const AppContent = () => {
+  const { activeNotebookId, chatMode } = useNotebook();
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return null; // AuthContext handles loading state
+  }
+
+  if (!isAuthenticated) {
+    return <Login />;
+  }
+
+  if (chatMode && activeNotebookId) {
+    return <ChatInterface />;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppLayout>
+      {activeNotebookId ? <NotebookDashboard /> : <ChatWelcome />}
+    </AppLayout>
   );
-}
+};
+
+const App = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <AuthProvider>
+        <NotebookProvider>
+          <div className="app-bg" />
+          <AppContent />
+        </NotebookProvider>
+      </AuthProvider>
+    </ThemeProvider>
+  );
+};
 
 export default App;
