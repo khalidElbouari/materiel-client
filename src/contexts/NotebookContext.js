@@ -193,6 +193,11 @@ export const NotebookProvider = ({ children }) => {
     setChatMode(prev => !prev);
   };
 
+  const goHome = () => {
+    setActiveNotebookId(null);
+    setChatMode(false);
+  };
+
   const value = {
     notebooks,
     activeNotebookId,
@@ -209,6 +214,7 @@ export const NotebookProvider = ({ children }) => {
     addMessage,
     clearChat,
     toggleChatMode,
+    goHome,
   };
 
   return (
