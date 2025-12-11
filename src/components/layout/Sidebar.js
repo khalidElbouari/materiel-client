@@ -28,9 +28,10 @@ import { useNotebook } from '../../contexts/NotebookContext';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Sidebar = ({ collapsed, onToggle }) => {
-  const { notebooks, activeNotebookId, createNotebook, selectNotebook } = useNotebook();
+  const { notebooks, activeNotebookId, createNotebook, selectNotebook, goHome } = useNotebook();
   const { user, logout } = useAuth();
   const [createDialogOpen, setCreateDialogOpen] = React.useState(false);
+  const [logoutDialogOpen, setLogoutDialogOpen] = React.useState(false);
   const [newNotebookName, setNewNotebookName] = React.useState('');
   const [newNotebookDesc, setNewNotebookDesc] = React.useState('');
 
@@ -46,13 +47,42 @@ const Sidebar = ({ collapsed, onToggle }) => {
   const itemButtonStyles = {
     borderRadius: 12,
     px: collapsed ? 1 : 1.5,
-    py: 1,
+    py: 1.5,
     justifyContent: collapsed ? 'center' : 'flex-start',
-    minHeight: 46,
+    minHeight: 44,
+    mb: 1.5,
     '& .MuiListItemIcon-root': {
-      minWidth: collapsed ? 0 : 40,
-      mr: collapsed ? 0 : 1,
+      minWidth: collapsed ? 0 : 32,
+      mr: collapsed ? 0 : 1.5,
       justifyContent: 'center',
+      '& svg': {
+        fontSize: collapsed ? 22 : 20,
+        color: 'text.secondary',
+        transition: 'all 0.2s ease',
+      },
+    },
+    ...(collapsed ? {
+      '&:hover': {
+        bgcolor: 'rgba(25, 118, 210, 0.08)',
+        '& .MuiListItemIcon-root svg': {
+          color: 'primary.light',
+          transform: 'scale(1.05)',
+        },
+      },
+    } : {
+      '&:hover .MuiListItemIcon-root svg': {
+        color: 'primary.light',
+        transform: 'scale(1.05)',
+      },
+    }),
+    '&.Mui-selected': {
+      bgcolor: 'rgba(25, 118, 210, 0.12)',
+      '& .MuiListItemIcon-root svg': {
+        color: 'primary.main',
+      },
+    },
+    '&.Mui-selected .MuiListItemIcon-root svg': {
+      color: 'primary.main',
     },
   };
 
@@ -61,58 +91,92 @@ const Sidebar = ({ collapsed, onToggle }) => {
     <Box
       component="aside"
       sx={{
-        width: collapsed ? 88 : { xs: 260, sm: 280 },
+        width: collapsed ? 72 : { xs: 260, sm: 280 },
         bgcolor: 'background.paper',
         borderRight: '1px solid',
         borderColor: 'divider',
         display: 'flex',
         flexDirection: 'column',
-        gap: collapsed ? 1.5 : 2,
-        p: collapsed ? 1.25 : 2,
+        p: collapsed ? 1 : 1.5,
         overflowY: 'auto',
         transition: 'width 0.25s ease, padding 0.25s ease',
+        minHeight: '100vh',
       }}
     >
-      <Stack
-        direction="row"
-        alignItems="center"
-        spacing={collapsed ? 0.75 : 1.5}
-        sx={{ justifyContent: collapsed ? 'center' : 'flex-start' }}
-      >
-        <Box
-          sx={{
-            width: 36,
-            height: 36,
-            borderRadius: '12px',
-            bgcolor: 'rgba(34,197,94,0.16)',
-            display: 'grid',
-            placeItems: 'center',
-            color: 'primary.main',
-            flexShrink: 0,
-          }}
+      {collapsed ? (
+        <Stack spacing={1} alignItems="center">
+          <Box
+            sx={{
+              width: 36,
+              height: 36,
+              borderRadius: '12px',
+              bgcolor: 'rgba(34,197,94,0.16)',
+              display: 'grid',
+              placeItems: 'center',
+              color: 'primary.main',
+              flexShrink: 0,
+            }}
+          >
+            <TranslateRoundedIcon fontSize="small" />
+          </Box>
+          <IconButton
+            aria-label="Toggle sidebar"
+            size="small"
+            onClick={onToggle}
+            sx={{ color: 'text.secondary' }}
+          >
+            <MenuRoundedIcon />
+          </IconButton>
+        </Stack>
+      ) : (
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={1.5}
+          sx={{ justifyContent: 'flex-start' }}
         >
-          <TranslateRoundedIcon fontSize="small" />
-        </Box>
-        {!collapsed && (
-          <Typography variant="subtitle1" fontWeight={700}>
-            {process.env.REACT_APP_NAME || 'NotebookLM Clone'}
+          <Box
+            sx={{
+              width: 36,
+              height: 36,
+              borderRadius: '12px',
+              bgcolor: 'rgba(34,197,94,0.16)',
+              display: 'grid',
+              placeItems: 'center',
+              color: 'primary.main',
+              flexShrink: 0,
+            }}
+          >
+            <TranslateRoundedIcon fontSize="small" />
+          </Box>
+          <Typography
+            variant="subtitle1"
+            fontWeight={700}
+            sx={{
+              cursor: 'pointer',
+              '&:hover': { color: 'primary.main' },
+              transition: 'color 0.2s ease',
+            }}
+            onClick={goHome}
+          >
+            {process.env.REACT_APP_NAME || 'RAG Materiel'}
           </Typography>
-        )}
-        <IconButton
-          aria-label="Toggle sidebar"
-          size="small"
-          onClick={onToggle}
-          sx={{ ml: 'auto', color: 'text.secondary' }}
-        >
-          {collapsed ? <MenuRoundedIcon /> : <MenuOpenRoundedIcon />}
-        </IconButton>
-      </Stack>
+          <IconButton
+            aria-label="Toggle sidebar"
+            size="small"
+            onClick={onToggle}
+            sx={{ ml: 'auto', color: 'text.secondary' }}
+          >
+            <MenuOpenRoundedIcon />
+          </IconButton>
+        </Stack>
+      )}
 
       <List
         disablePadding
-        dense
         sx={{
           '& .MuiListItemButton-root': itemButtonStyles,
+          mb: 1,
         }}
       >
         <ListItem disableGutters>
@@ -178,37 +242,72 @@ const Sidebar = ({ collapsed, onToggle }) => {
         </Box>
       </Stack>
 
-      <Box sx={{ flex: 1 }} />
+      <Box sx={{ flex: 0.5 }} />
       <Divider flexItem />
-      <ListItemButton
-        onClick={logout}
-        sx={{
-          ...itemButtonStyles,
-          px: collapsed ? 1 : 1,
-          py: 0.5,
-        }}
-      >
-        <Avatar
-          src={user?.avatar}
+      {collapsed ? (
+        <Stack spacing={1} alignItems="center">
+          <Avatar
+            src={user?.avatar}
+            sx={{
+              width: 28,
+              height: 28,
+              flexShrink: 0,
+            }}
+          >
+            {user?.name?.charAt(0)?.toUpperCase()}
+          </Avatar>
+          <IconButton size="small" color="inherit" onClick={() => setLogoutDialogOpen(true)} sx={{ p: 0.5 }}>
+            <LogoutRoundedIcon sx={{ fontSize: 18 }} />
+          </IconButton>
+        </Stack>
+      ) : (
+        <Box
           sx={{
-            width: 32,
-            height: 32,
-            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            px: 1,
+            py: 0.5,
+            minHeight: 44,
+            borderRadius: 8,
           }}
         >
-          {user?.name?.charAt(0)?.toUpperCase()}
-        </Avatar>
-        {!collapsed && (
+          <Avatar
+            src={user?.avatar}
+            sx={{
+              width: 32,
+              height: 32,
+              flexShrink: 0,
+            }}
+          >
+            {user?.name?.charAt(0)?.toUpperCase()}
+          </Avatar>
           <ListItemText
             primary={user?.name || 'User'}
             secondary="Sign Out"
             sx={{ ml: 1 }}
           />
-        )}
-        <IconButton size="small" color="inherit" sx={{ ml: collapsed ? 0 : 'auto' }}>
-          <LogoutRoundedIcon fontSize="small" />
-        </IconButton>
-      </ListItemButton>
+          <IconButton
+            size="small"
+            color="inherit"
+            onClick={() => setLogoutDialogOpen(true)}
+            sx={{
+              ml: 'auto',
+              '&:hover': {
+                bgcolor: 'rgba(25, 118, 210, 0.08)',
+                '& svg': {
+                  color: 'primary.light',
+                  transform: 'scale(1.05)',
+                },
+              },
+              '& svg': {
+                transition: 'all 0.2s ease',
+              },
+            }}
+          >
+            <LogoutRoundedIcon fontSize="small" />
+          </IconButton>
+        </Box>
+      )}
     </Box>
 
     <Dialog open={createDialogOpen} onClose={() => setCreateDialogOpen(false)} maxWidth="sm" fullWidth>
@@ -238,6 +337,26 @@ const Sidebar = ({ collapsed, onToggle }) => {
       <DialogActions>
         <Button onClick={() => setCreateDialogOpen(false)}>Cancel</Button>
         <Button onClick={handleCreateNotebook} variant="contained">Create</Button>
+      </DialogActions>
+    </Dialog>
+
+    <Dialog open={logoutDialogOpen} onClose={() => setLogoutDialogOpen(false)} maxWidth="xs" fullWidth>
+      <DialogTitle>Confirm Logout</DialogTitle>
+      <DialogContent>
+        <Typography>Are you sure you want to sign out?</Typography>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => setLogoutDialogOpen(false)}>Cancel</Button>
+        <Button
+          onClick={() => {
+            logout();
+            setLogoutDialogOpen(false);
+          }}
+          variant="contained"
+          color="error"
+        >
+          Sign Out
+        </Button>
       </DialogActions>
     </Dialog>
     </>
