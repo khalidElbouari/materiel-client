@@ -11,6 +11,7 @@ import {
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import { useNotebook } from '../../contexts/NotebookContext';
 import ChatInput from './ChatInput';
+import MarkdownMessage from './MarkdownMessage';  // ✅ Import the new component
 import { api } from '../../services/api';
 
 const ChatInterface = () => {
@@ -29,7 +30,6 @@ const ChatInterface = () => {
   const handleSendMessage = async (message) => {
     if (!message.trim()) return;
 
-    // Add user message
     addMessage(activeNotebook.id, {
       id: Date.now().toString(),
       type: 'user',
@@ -41,7 +41,6 @@ const ChatInterface = () => {
 
     try {
       const response = await api.queryDocuments(message, activeNotebook.id);
-      // Add AI response
       addMessage(activeNotebook.id, {
         id: (Date.now() + 1).toString(),
         type: 'ai',
@@ -140,22 +139,39 @@ const ChatInterface = () => {
                   mr: message.type === 'user' ? 0 : 'auto',
                 }}
               >
-                <Typography variant="body1">{message.content}</Typography>
+                {/* ✅ Use MarkdownMessage component for AI responses */}
+                {message.type === 'ai' ? (
+                  <MarkdownMessage content={message.content} />
+                ) : (
+                  <Typography variant="body1">{message.content}</Typography>
+                )}
               </Paper>
 
+              {/* Sources */}
               {message.sources && message.sources.length > 0 && (
-                <Box sx={{ mt: 1, ml: message.type === 'user' ? 'auto' : 0, mr: message.type === 'user' ? 0 : 'auto', maxWidth: '80%' }}>
-                  <Typography variant="caption" color="text.secondary" sx={{ mb: 0.5, display: 'block' }}>
+                <Box
+                  sx={{
+                    mt: 1,
+                    ml: message.type === 'user' ? 'auto' : 0,
+                    mr: message.type === 'user' ? 0 : 'auto',
+                    maxWidth: '80%',
+                  }}
+                >
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    sx={{ mb: 0.5, display: 'block' }}
+                  >
                     Sources:
                   </Typography>
-                  <Stack direction="row" spacing={1} flexWrap="wrap">
+                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
                     {message.sources.map((source, index) => (
                       <Chip
                         key={index}
-                        label={source.metadata.filename}
+                        label={source.metadata?.filename || `Source ${index + 1}`}
                         size="small"
                         variant="outlined"
-                        sx={{ fontSize: '0.75rem' }}
+                        sx={{ fontSize: '0.75rem', mb: 0.5 }}
                       />
                     ))}
                   </Stack>
