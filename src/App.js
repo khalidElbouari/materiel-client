@@ -34,7 +34,7 @@ const App = () => {
       <CssBaseline />
       <AuthProvider>
         <NotebookProvider>
-          <div className="app-bg" />
+          <div className="app" />
           <AppContent />
         </NotebookProvider>
       </AuthProvider>

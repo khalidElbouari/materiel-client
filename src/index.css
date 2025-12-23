@@ -1,36 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+/* App.css - Fixed version */
 
-:root {
-  color-scheme: dark;
+/* Background with proper z-index layering */
+.app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* ✅ CRITICAL: Must be behind content */
+  pointer-events: none;
+  background: linear-gradient(135deg, #0f1116 0%, #161922 50%, #1a1d29 100%);
 }
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background-color: #0f1116;
-  color: #f6f7fb;
-  font-family: 'Space Grotesk', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#root {
-  min-height: 100vh;
-  position: relative;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-}

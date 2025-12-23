@@ -212,7 +212,7 @@ const NotebookDashboard = () => {
           mb: 3,
           border: '2px dashed',
           borderColor: uploadingFiles.size > 0 ? 'primary.main' : 'divider',
-          bgcolor: uploadingFiles.size > 0 ? 'rgba(25,118,210,0.04)' : 'rgba(255,255,255,0.02)',
+          bgcolor: uploadingFiles.size > 0 ? 'rgba(25,118,210,0.04)' : 'background.paper',
           textAlign: 'center',
           transition: 'all 0.3s ease',
         }}
@@ -278,7 +278,7 @@ const NotebookDashboard = () => {
       </Typography>
 
       {documents.length === 0 ? (
-        <Paper sx={{ p: 3, textAlign: 'center', bgcolor: 'rgba(255,255,255,0.02)' }}>
+        <Paper sx={{ p: 3, textAlign: 'center', bgcolor: 'background.paper' }}>
           <Typography variant="body1" color="text.secondary">
             No documents uploaded yet
           </Typography>

@@ -75,13 +75,13 @@ const Topbar = () => {
       </Stack>
 
       <Stack direction="row" spacing={1} alignItems="center">
-        <IconButton size="small" color="inherit">
+        <IconButton size="small" color="primary">
           <LanguageRoundedIcon />
         </IconButton>
-        <IconButton size="small" color="inherit">
+        <IconButton size="small" color="primary">
           <HelpOutlineRoundedIcon />
         </IconButton>
-        <IconButton size="small" color="inherit">
+        <IconButton size="small" color="primary">
           <SettingsRoundedIcon />
         </IconButton>
 

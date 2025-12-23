@@ -129,47 +129,53 @@ const Sidebar = ({ collapsed, onToggle }) => {
           </IconButton>
         </Stack>
       ) : (
-        <Stack
-          direction="row"
-          alignItems="center"
-          spacing={1.5}
-          sx={{ justifyContent: 'flex-start' }}
-        >
-          <Box
-            sx={{
-              width: 36,
-              height: 36,
-              borderRadius: '12px',
-              bgcolor: 'rgba(34,197,94,0.16)',
-              display: 'grid',
-              placeItems: 'center',
-              color: 'primary.main',
-              flexShrink: 0,
-            }}
-          >
-            <TranslateRoundedIcon fontSize="small" />
-          </Box>
-          <Typography
-            variant="subtitle1"
-            fontWeight={700}
-            sx={{
-              cursor: 'pointer',
-              '&:hover': { color: 'primary.main' },
-              transition: 'color 0.2s ease',
-            }}
-            onClick={goHome}
-          >
-            {process.env.REACT_APP_NAME || 'RAG Materiel'}
-          </Typography>
-          <IconButton
-            aria-label="Toggle sidebar"
-            size="small"
-            onClick={onToggle}
-            sx={{ ml: 'auto', color: 'text.secondary' }}
-          >
-            <MenuOpenRoundedIcon />
-          </IconButton>
-        </Stack>
+       <Stack
+  direction="row"
+  alignItems="center"
+  sx={{ width: '100%' }}
+>
+  {/* LEFT SIDE */}
+  <Stack direction="row" alignItems="center" spacing={1.5}>
+    <Box
+      sx={{
+        width: 36,
+        height: 36,
+        borderRadius: '12px',
+        bgcolor: 'rgba(34,197,94,0.16)',
+        display: 'grid',
+        placeItems: 'center',
+        color: 'primary.main',
+        flexShrink: 0,
+      }}
+    >
+      <TranslateRoundedIcon fontSize="small" />
+    </Box>
+
+    <Typography
+      variant="subtitle1"
+      fontWeight={700}
+      sx={{
+        cursor: 'pointer',
+        '&:hover': { color: 'primary.main' },
+        transition: 'color 0.2s ease',
+      }}
+      onClick={goHome}
+    >
+      {process.env.REACT_APP_NAME || 'RAG Materiel'}
+    </Typography>
+  </Stack>
+
+  {/* RIGHT SIDE */}
+  <IconButton
+    aria-label="Toggle sidebar"
+    size="small"
+    onClick={onToggle}
+    sx={{ ml: 'auto', color: 'text.secondary' }}
+  >
+    <MenuOpenRoundedIcon />
+  </IconButton>
+</Stack>
+
       )}
 
       <List
@@ -221,7 +227,7 @@ const Sidebar = ({ collapsed, onToggle }) => {
             borderColor: 'divider',
             borderRadius: 12,
             p: collapsed ? 1 : 2,
-            bgcolor: 'rgba(255,255,255,0.03)',
+            bgcolor: 'background.paper',
             display: 'flex',
             alignItems: 'center',
             justifyContent: collapsed ? 'center' : 'flex-start',
@@ -232,9 +238,7 @@ const Sidebar = ({ collapsed, onToggle }) => {
               <Typography variant="body2" fontWeight={600}>
                 Historique en attente
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Les chats s&apos;afficheront ici une fois connectes au backend.
-              </Typography>
+             
             </Stack>
           ) : (
             <TranslateRoundedIcon color="primary" fontSize="small" />

@@ -7,6 +7,7 @@ const theme = createTheme({
       main: '#22c55e',
       light: '#4ade80',
       dark: '#16a34a',
+      contrastText: '#ffffff',
     },
     secondary: {
       main: '#34d399',
@@ -20,13 +21,13 @@ const theme = createTheme({
     },
     divider: 'rgba(255,255,255,0.07)',
     text: {
-      primary: '#f6f7fb',
-      secondary: '#a5adbf',
+      primary: '#ffffff',
+      secondary: '#b0b0b0',
     },
     success: {
-      main: '#22c55e',
-      light: '#4ade80',
-      dark: '#16a34a',
+      main: '#4ade80',
+      light: '#6ee7b7',
+      dark: '#22c55e',
     },
     error: {
       main: '#ef4444',
@@ -44,7 +45,7 @@ const theme = createTheme({
       letterSpacing: '-0.01em',
     },
     body1: {
-      color: '#c4cad8',
+      color: '#ffffff',
     },
   },
   components: {
@@ -99,6 +100,43 @@ const theme = createTheme({
         root: {
           borderRadius: 8,
           fontWeight: 500,
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiInputBase-input::placeholder': {
+            color: '#c0c0c0',
+            opacity: 1,
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: '#f5f5f5',
+          '&.Mui-focused': {
+            color: '#ffffff',
+          },
+        },
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          color: '#e0e0e0',
+        },
+      },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          color: '#f5f5f5',
+          '&:hover': {
+            color: '#ffffff',
+          },
         },
       },
     },
