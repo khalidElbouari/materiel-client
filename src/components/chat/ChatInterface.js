@@ -78,7 +78,7 @@ const ChatInterface = () => {
           bgcolor: 'background.paper',
         }}
       >
-        <IconButton onClick={toggleChatMode} sx={{ mr: 1 }}>
+        <IconButton color="primary" onClick={toggleChatMode} sx={{ mr: 1 }}>
           <ArrowBackRoundedIcon />
         </IconButton>
         <Box sx={{ flex: 1 }}>
@@ -143,7 +143,7 @@ const ChatInterface = () => {
                 {message.type === 'ai' ? (
                   <MarkdownMessage content={message.content} />
                 ) : (
-                  <Typography variant="body1">{message.content}</Typography>
+                  <Typography variant="body1" sx={{ color: '#ffffff' }}>{message.content}</Typography>
                 )}
               </Paper>
 

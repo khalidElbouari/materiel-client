@@ -4,28 +4,29 @@ import { Typography, Box } from '@mui/material';
 
 const MarkdownMessage = ({ content }) => {
   return (
-    <ReactMarkdown
+    <Box sx={{ color: '#ffffff' }}>
+      <ReactMarkdown
       components={{
         // Paragraphs
         p: ({ children }) => (
-          <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.6 }}>
+          <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.6, color: 'inherit' }}>
             {children}
           </Typography>
         ),
         
         // Headings
         h1: ({ children }) => (
-          <Typography variant="h5" sx={{ mb: 1.5, mt: 2, fontWeight: 600 }}>
+          <Typography variant="h5" sx={{ mb: 1.5, mt: 2, fontWeight: 600, color: 'inherit' }}>
             {children}
           </Typography>
         ),
         h2: ({ children }) => (
-          <Typography variant="h6" sx={{ mb: 1, mt: 1.5, fontWeight: 600 }}>
+          <Typography variant="h6" sx={{ mb: 1, mt: 1.5, fontWeight: 600, color: 'inherit' }}>
             {children}
           </Typography>
         ),
         h3: ({ children }) => (
-          <Typography variant="subtitle1" sx={{ mb: 1, mt: 1.5, fontWeight: 600 }}>
+          <Typography variant="subtitle1" sx={{ mb: 1, mt: 1.5, fontWeight: 600, color: 'inherit' }}>
             {children}
           </Typography>
         ),
@@ -42,19 +43,19 @@ const MarkdownMessage = ({ content }) => {
           </Box>
         ),
         li: ({ children }) => (
-          <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+          <Typography component="li" variant="body2" sx={{ mb: 0.5, color: 'inherit' }}>
             {children}
           </Typography>
         ),
         
         // Text formatting
         strong: ({ children }) => (
-          <Typography component="strong" sx={{ fontWeight: 700 }}>
+          <Typography component="strong" sx={{ fontWeight: 700, color: 'inherit' }}>
             {children}
           </Typography>
         ),
         em: ({ children }) => (
-          <Typography component="em" sx={{ fontStyle: 'italic' }}>
+          <Typography component="em" sx={{ fontStyle: 'italic', color: 'inherit' }}>
             {children}
           </Typography>
         ),
@@ -66,12 +67,13 @@ const MarkdownMessage = ({ content }) => {
               <Typography
                 component="code"
                 sx={{
-                  bgcolor: 'rgba(255,255,255,0.1)',
+                  bgcolor: 'rgba(255, 255, 255, 0.98)',
                   px: 0.5,
                   py: 0.25,
                   borderRadius: 0.5,
                   fontSize: '0.875em',
                   fontFamily: 'monospace',
+                  color: '#000000',
                 }}
               >
                 {children}
@@ -82,7 +84,7 @@ const MarkdownMessage = ({ content }) => {
             <Box
               component="pre"
               sx={{
-                bgcolor: 'rgba(255,255,255,0.05)',
+                bgcolor: 'background.alt',
                 p: 1.5,
                 borderRadius: 1,
                 overflow: 'auto',
@@ -94,6 +96,7 @@ const MarkdownMessage = ({ content }) => {
                 sx={{
                   fontSize: '0.875rem',
                   fontFamily: 'monospace',
+                  color: 'inherit',
                 }}
               >
                 {children}
@@ -141,6 +144,7 @@ const MarkdownMessage = ({ content }) => {
     >
       {content}
     </ReactMarkdown>
+    </Box>
   );
 };
 

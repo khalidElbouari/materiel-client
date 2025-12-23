@@ -37,7 +37,7 @@ const ChatInput = ({ onSend, disabled = false }) => {
       sx={{
         p: 1,
         borderRadius: 14,
-        bgcolor: 'rgba(255,255,255,0.06)',
+        bgcolor: 'background.paper',
         border: '1px solid',
         borderColor: 'divider',
         maxWidth: 900,
@@ -46,7 +46,7 @@ const ChatInput = ({ onSend, disabled = false }) => {
       }}
     >
       <Stack direction="row" alignItems="center" spacing={1}>
-        <IconButton color="inherit" size="small" type="button">
+        <IconButton color="primary" size="small" type="button">
           <AddRoundedIcon />
         </IconButton>
         <InputBase
@@ -64,19 +64,18 @@ const ChatInput = ({ onSend, disabled = false }) => {
           sx={{ borderColor: 'divider', mx: 0.5, height: 32 }}
         />
         <Tooltip title="Voice input">
-          <IconButton color="inherit" size="small" type="button">
+          <IconButton color="primary" size="small" type="button">
             <MicNoneRoundedIcon />
           </IconButton>
         </Tooltip>
         <Tooltip title="Transcribe">
-          <IconButton color="inherit" size="small" type="button">
+          <IconButton color="primary" size="small" type="button">
             <GraphicEqRoundedIcon />
           </IconButton>
         </Tooltip>
         <IconButton
           color="primary"
           size="small"
-          sx={{ bgcolor: 'rgba(34,197,94,0.14)' }}
           type="submit"
           disabled={disabled || !message.trim()}
         >
