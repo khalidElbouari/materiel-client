@@ -1,5 +1,13 @@
 # Getting Started with Create React App
 
+## Demo
+
+[Watch the project video](https://drive.google.com/file/d/1em5Wt8vJrWYTh_oq11Gfx6isRHGyab0R/view?usp=drive_link)
+
+## Architecture
+
+![RAG Application Architecture](rag-application-architecture.png)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
